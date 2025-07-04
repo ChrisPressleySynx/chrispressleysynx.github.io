@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Holiday Planner</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better readability and input fields */
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .calendar-table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 1200px; /* Max width for larger screens */
+            margin: 2rem auto;
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            border-radius: 12px; /* Rounded corners for the table */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        .calendar-table th, .calendar-table td {
+            border: 1px solid #e2e8f0; /* Light gray border */
+            padding: 0.75rem;
+            vertical-align: top;
+        }
+        .calendar-table th {
+            background-color: #3b82f6; /* Blue header */
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem 0.75rem;
+        }
+        .calendar-table td {
+            background-color: #ffffff;
+        }
+        .day-header {
+            background-color: #bfdbfe; /* Lighter blue for day headers */
+            font-weight: 700;
+            text-align: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #93c5fd;
+        }
+        .time-slot {
+            font-weight: 600;
+            color: #4b5563; /* Darker gray for time slot labels */
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .input-group {
+            margin-bottom: 0.75rem;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.875rem; /* Smaller label text */
+            color: #6b7280; /* Medium gray */
+            margin-bottom: 0.25rem;
+        }
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #cbd5e0; /* Light border */
+            border-radius: 0.375rem; /* Small rounded corners */
+            font-size: 0.9rem;
+            line-height: 1.25;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #3b82f6; /* Blue focus border */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Light blue shadow on focus */
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .calendar-table {
+                margin: 1rem auto;
+                border-radius: 0; /* No rounded corners on small screens */
+                box-shadow: none; /* No shadow on small screens */
+            }
+            .calendar-table th, .calendar-table td {
+                padding: 0.5rem;
+            }
+            .input-group {
+                margin-bottom: 0.5rem;
+            }
+            .input-group label {
+                font-size: 0.75rem;
+            }
+            .input-group input[type="text"],
+            .input-group input[type="number"],
+            .input-group select {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body class="p-4">
+    <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8 mt-4 rounded-lg p-3 shadow-md bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        California Holiday Planner ☀️
+    </h1>
+
+    <table class="calendar-table">
+        <thead>
+            <tr>
+                <th class="w-1/6">Date</th>
+                <th class="w-5/12">Morning</th>
+                <th class="w-5/12">Afternoon</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- October 2025 -->
+            <tr>
+                <td class="day-header" colspan="3">October 2025</td>
+            </tr>
+            <!-- Saturday, October 18th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sat 18th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct18_am_activity">Activity:</label>
+                        <input type="text" id="oct18_am_activity" placeholder="e.g., Fly to LAX">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_am_location">Location:</label>
+                        <input type="text" id="oct18_am_location" placeholder="e.g., Los Angeles">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_am_price">Price:</label>
+                        <input type="number" id="oct18_am_price" placeholder="e.g., 500" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_am_paid">Paid:</label>
+                        <select id="oct18_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct18_pm_activity">Activity:</label>
+                        <input type="text" id="oct18_pm_activity" placeholder="e.g., Check into hotel">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_pm_location">Location:</label>
+                        <input type="text" id="oct18_pm_location" placeholder="e.g., Santa Monica">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_pm_price">Price:</label>
+                        <input type="number" id="oct18_pm_price" placeholder="e.g., 200" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct18_pm_paid">Paid:</label>
+                        <select id="oct18_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Sunday, October 19th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sun 19th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct19_am_activity">Activity:</label>
+                        <input type="text" id="oct19_am_activity" placeholder="e.g., Hollywood Walk of Fame">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_am_location">Location:</label>
+                        <input type="text" id="oct19_am_location" placeholder="e.g., Hollywood">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_am_price">Price:</label>
+                        <input type="number" id="oct19_am_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_am_paid">Paid:</label>
+                        <select id="oct19_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct19_pm_activity">Activity:</label>
+                        <input type="text" id="oct19_pm_activity" placeholder="e.g., Griffith Observatory">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_pm_location">Location:</label>
+                        <input type="text" id="oct19_pm_location" placeholder="e.g., Los Angeles">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_pm_price">Price:</label>
+                        <input type="number" id="oct19_pm_price" placeholder="e.g., 10" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct19_pm_paid">Paid:</label>
+                        <select id="oct19_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Monday, October 20th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Mon 20th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct20_am_activity">Activity:</label>
+                        <input type="text" id="oct20_am_activity" placeholder="e.g., Universal Studios Hollywood">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_am_location">Location:</label>
+                        <input type="text" id="oct20_am_location" placeholder="e.g., Universal City">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_am_price">Price:</label>
+                        <input type="number" id="oct20_am_price" placeholder="e.g., 120" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_am_paid">Paid:</label>
+                        <select id="oct20_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct20_pm_activity">Activity:</label>
+                        <input type="text" id="oct20_pm_activity" placeholder="e.g., Explore CityWalk">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_pm_location">Location:</label>
+                        <input type="text" id="oct20_pm_location" placeholder="e.g., Universal City">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_pm_price">Price:</label>
+                        <input type="number" id="oct20_pm_price" placeholder="e.g., 50" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct20_pm_paid">Paid:</label>
+                        <select id="oct20_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Tuesday, October 21st -->
+            <tr>
+                <td class="text-center font-bold text-lg">Tue 21st</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct21_am_activity">Activity:</label>
+                        <input type="text" id="oct21_am_activity" placeholder="e.g., Drive to San Diego">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_am_location">Location:</label>
+                        <input type="text" id="oct21_am_location" placeholder="e.g., San Diego">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_am_price">Price:</label>
+                        <input type="number" id="oct21_am_price" placeholder="e.g., 30" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_am_paid">Paid:</label>
+                        <select id="oct21_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct21_pm_activity">Activity:</label>
+                        <input type="text" id="oct21_pm_activity" placeholder="e.g., Balboa Park & Museums">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_pm_location">Location:</label>
+                        <input type="text" id="oct21_pm_location" placeholder="e.g., San Diego">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_pm_price">Price:</label>
+                        <input type="number" id="oct21_pm_price" placeholder="e.g., 25" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct21_pm_paid">Paid:</label>
+                        <select id="oct21_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Wednesday, October 22nd -->
+            <tr>
+                <td class="text-center font-bold text-lg">Wed 22nd</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct22_am_activity">Activity:</label>
+                        <input type="text" id="oct22_am_activity" placeholder="e.g., San Diego Zoo">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_am_location">Location:</label>
+                        <input type="text" id="oct22_am_location" placeholder="e.g., San Diego">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_am_price">Price:</label>
+                        <input type="number" id="oct22_am_price" placeholder="e.g., 60" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_am_paid">Paid:</label>
+                        <select id="oct22_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct22_pm_activity">Activity:</label>
+                        <input type="text" id="oct22_pm_activity" placeholder="e.g., Gaslamp Quarter">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_pm_location">Location:</label>
+                        <input type="text" id="oct22_pm_location" placeholder="e.g., San Diego">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_pm_price">Price:</label>
+                        <input type="number" id="oct22_pm_price" placeholder="e.g., 40" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct22_pm_paid">Paid:</label>
+                        <select id="oct22_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Thursday, October 23rd -->
+            <tr>
+                <td class="text-center font-bold text-lg">Thu 23rd</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct23_am_activity">Activity:</label>
+                        <input type="text" id="oct23_am_activity" placeholder="e.g., Drive to Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_am_location">Location:</label>
+                        <input type="text" id="oct23_am_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_am_price">Price:</label>
+                        <input type="number" id="oct23_am_price" placeholder="e.g., 20" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_am_paid">Paid:</label>
+                        <select id="oct23_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct23_pm_activity">Activity:</label>
+                        <input type="text" id="oct23_pm_activity" placeholder="e.g., Downtown Disney">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_pm_location">Location:</label>
+                        <input type="text" id="oct23_pm_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_pm_price">Price:</label>
+                        <input type="number" id="oct23_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct23_pm_paid">Paid:</label>
+                        <select id="oct23_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Friday, October 24th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Fri 24th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct24_am_activity">Activity:</label>
+                        <input type="text" id="oct24_am_activity" placeholder="e.g., Disneyland Park">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_am_location">Location:</label>
+                        <input type="text" id="oct24_am_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_am_price">Price:</label>
+                        <input type="number" id="oct24_am_price" placeholder="e.g., 150" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_am_paid">Paid:</label>
+                        <select id="oct24_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct24_pm_activity">Activity:</label>
+                        <input type="text" id="oct24_pm_activity" placeholder="e.g., Disneyland Park (continued)">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_pm_location">Location:</label>
+                        <input type="text" id="oct24_pm_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_pm_price">Price:</label>
+                        <input type="number" id="oct24_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct24_pm_paid">Paid:</label>
+                        <select id="oct24_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Saturday, October 25th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sat 25th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct25_am_activity">Activity:</label>
+                        <input type="text" id="oct25_am_activity" placeholder="e.g., Disney California Adventure">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_am_location">Location:</label>
+                        <input type="text" id="oct25_am_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_am_price">Price:</label>
+                        <input type="number" id="oct25_am_price" placeholder="e.g., 150" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_am_paid">Paid:</label>
+                        <select id="oct25_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct25_pm_activity">Activity:</label>
+                        <input type="text" id="oct25_pm_activity" placeholder="e.g., Disney California Adventure (continued)">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_pm_location">Location:</label>
+                        <input type="text" id="oct25_pm_location" placeholder="e.g., Anaheim">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_pm_price">Price:</label>
+                        <input type="number" id="oct25_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct25_pm_paid">Paid:</label>
+                        <select id="oct25_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Sunday, October 26th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sun 26th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct26_am_activity">Activity:</label>
+                        <input type="text" id="oct26_am_activity" placeholder="e.g., Drive to Santa Barbara">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_am_location">Location:</label>
+                        <input type="text" id="oct26_am_location" placeholder="e.g., Santa Barbara">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_am_price">Price:</label>
+                        <input type="number" id="oct26_am_price" placeholder="e.g., 40" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_am_paid">Paid:</label>
+                        <select id="oct26_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct26_pm_activity">Activity:</label>
+                        <input type="text" id="oct26_pm_activity" placeholder="e.g., Stearns Wharf & Beach">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_pm_location">Location:</label>
+                        <input type="text" id="oct26_pm_location" placeholder="e.g., Santa Barbara">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_pm_price">Price:</label>
+                        <input type="number" id="oct26_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct26_pm_paid">Paid:</label>
+                        <select id="oct26_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Monday, October 27th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Mon 27th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct27_am_activity">Activity:</label>
+                        <input type="text" id="oct27_am_activity" placeholder="e.g., Mission Santa Barbara">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_am_location">Location:</label>
+                        <input type="text" id="oct27_am_location" placeholder="e.g., Santa Barbara">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_am_price">Price:</label>
+                        <input type="number" id="oct27_am_price" placeholder="e.g., 15" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_am_paid">Paid:</label>
+                        <select id="oct27_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct27_pm_activity">Activity:</label>
+                        <input type="text" id="oct27_pm_activity" placeholder="e.g., Drive to San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_pm_location">Location:</label>
+                        <input type="text" id="oct27_pm_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_pm_price">Price:</label>
+                        <input type="number" id="oct27_pm_price" placeholder="e.g., 80" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct27_pm_paid">Paid:</label>
+                        <select id="oct27_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Tuesday, October 28th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Tue 28th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct28_am_activity">Activity:</label>
+                        <input type="text" id="oct28_am_activity" placeholder="e.g., Golden Gate Bridge">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_am_location">Location:</label>
+                        <input type="text" id="oct28_am_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_am_price">Price:</label>
+                        <input type="number" id="oct28_am_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_am_paid">Paid:</label>
+                        <select id="oct28_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct28_pm_activity">Activity:</label>
+                        <input type="text" id="oct28_pm_activity" placeholder="e.g., Alcatraz Island Tour">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_pm_location">Location:</label>
+                        <input type="text" id="oct28_pm_location" placeholder="e.g., San Francisco Bay">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_pm_price">Price:</label>
+                        <input type="number" id="oct28_pm_price" placeholder="e.g., 40" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct28_pm_paid">Paid:</label>
+                        <select id="oct28_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Wednesday, October 29th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Wed 29th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct29_am_activity">Activity:</label>
+                        <input type="text" id="oct29_am_activity" placeholder="e.g., Fisherman's Wharf">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_am_location">Location:</label>
+                        <input type="text" id="oct29_am_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_am_price">Price:</label>
+                        <input type="number" id="oct29_am_price" placeholder="e.g., 30" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_am_paid">Paid:</label>
+                        <select id="oct29_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct29_pm_activity">Activity:</label>
+                        <input type="text" id="oct29_pm_activity" placeholder="e.g., Cable Car Ride & Lombard Street">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_pm_location">Location:</label>
+                        <input type="text" id="oct29_pm_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_pm_price">Price:</label>
+                        <input type="number" id="oct29_pm_price" placeholder="e.g., 8" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct29_pm_paid">Paid:</label>
+                        <select id="oct29_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Thursday, October 30th -->
+            <tr>
+                <td class="text-center font-bold text-lg">Thu 30th</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct30_am_activity">Activity:</label>
+                        <input type="text" id="oct30_am_activity" placeholder="e.g., Exploratorium">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_am_location">Location:</label>
+                        <input type="text" id="oct30_am_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_am_price">Price:</label>
+                        <input type="number" id="oct30_am_price" placeholder="e.g., 35" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_am_paid">Paid:</label>
+                        <select id="oct30_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct30_pm_activity">Activity:</label>
+                        <input type="text" id="oct30_pm_activity" placeholder="e.g., Golden Gate Park">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_pm_location">Location:</label>
+                        <input type="text" id="oct30_pm_location" placeholder="e.g., San Francisco">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_pm_price">Price:</label>
+                        <input type="number" id="oct30_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct30_pm_paid">Paid:</label>
+                        <select id="oct30_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Friday, October 31st -->
+            <tr>
+                <td class="text-center font-bold text-lg">Fri 31st</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="oct31_am_activity">Activity:</label>
+                        <input type="text" id="oct31_am_activity" placeholder="e.g., Napa Valley Wine Tour">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_am_location">Location:</label>
+                        <input type="text" id="oct31_am_location" placeholder="e.g., Napa Valley">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_am_price">Price:</label>
+                        <input type="number" id="oct31_am_price" placeholder="e.g., 100" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_am_paid">Paid:</label>
+                        <select id="oct31_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="oct31_pm_activity">Activity:</label>
+                        <input type="text" id="oct31_pm_activity" placeholder="e.g., Dinner in Napa">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_pm_location">Location:</label>
+                        <input type="text" id="oct31_pm_location" placeholder="e.g., Napa Valley">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_pm_price">Price:</label>
+                        <input type="number" id="oct31_pm_price" placeholder="e.g., 70" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="oct31_pm_paid">Paid:</label>
+                        <select id="oct31_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- November 2025 -->
+            <tr>
+                <td class="day-header" colspan="3">November 2025</td>
+            </tr>
+            <!-- Saturday, November 1st -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sat 1st</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="nov01_am_activity">Activity:</label>
+                        <input type="text" id="nov01_am_activity" placeholder="e.g., Drive back to LA area">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_am_location">Location:</label>
+                        <input type="text" id="nov01_am_location" placeholder="e.g., Los Angeles">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_am_price">Price:</label>
+                        <input type="number" id="nov01_am_price" placeholder="e.g., 50" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_am_paid">Paid:</label>
+                        <select id="nov01_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="nov01_pm_activity">Activity:</label>
+                        <input type="text" id="nov01_pm_activity" placeholder="e.g., Relax / Last minute shopping">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_pm_location">Location:</label>
+                        <input type="text" id="nov01_pm_location" placeholder="e.g., Santa Monica">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_pm_price">Price:</label>
+                        <input type="number" id="nov01_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov01_pm_paid">Paid:</label>
+                        <select id="nov01_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Sunday, November 2nd -->
+            <tr>
+                <td class="text-center font-bold text-lg">Sun 2nd</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="nov02_am_activity">Activity:</label>
+                        <input type="text" id="nov02_am_activity" placeholder="e.g., Beach time">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_am_location">Location:</label>
+                        <input type="text" id="nov02_am_location" placeholder="e.g., Venice Beach">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_am_price">Price:</label>
+                        <input type="number" id="nov02_am_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_am_paid">Paid:</label>
+                        <select id="nov02_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="nov02_pm_activity">Activity:</label>
+                        <input type="text" id="nov02_pm_activity" placeholder="e.g., Farewell Dinner">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_pm_location">Location:</label>
+                        <input type="text" id="nov02_pm_location" placeholder="e.g., Santa Monica Pier">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_pm_price">Price:</label>
+                        <input type="number" id="nov02_pm_price" placeholder="e.g., 60" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov02_pm_paid">Paid:</label>
+                        <select id="nov02_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <!-- Monday, November 3rd -->
+            <tr>
+                <td class="text-center font-bold text-lg">Mon 3rd</td>
+                <td>
+                    <span class="time-slot">Morning:</span>
+                    <div class="input-group">
+                        <label for="nov03_am_activity">Activity:</label>
+                        <input type="text" id="nov03_am_activity" placeholder="e.g., Pack & Head to LAX">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_am_location">Location:</label>
+                        <input type="text" id="nov03_am_location" placeholder="e.g., Los Angeles Airport">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_am_price">Price:</label>
+                        <input type="number" id="nov03_am_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_am_paid">Paid:</label>
+                        <select id="nov03_am_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <span class="time-slot">Afternoon:</span>
+                    <div class="input-group">
+                        <label for="nov03_pm_activity">Activity:</label>
+                        <input type="text" id="nov03_pm_activity" placeholder="e.g., Fly home">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_pm_location">Location:</label>
+                        <input type="text" id="nov03_pm_location" placeholder="e.g., LAX">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_pm_price">Price:</label>
+                        <input type="number" id="nov03_pm_price" placeholder="e.g., 0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="nov03_pm_paid">Paid:</label>
+                        <select id="nov03_pm_paid">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
