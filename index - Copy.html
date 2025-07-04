@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>California Holiday Planner</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* Custom styles for better readability and input fields */
         body {
@@ -156,74 +155,6 @@
             right: 1.5rem; /* 24px from right */
             z-index: 1000; /* Ensure it's above other content */
         }
-        #export-pdf-button {
-            position: fixed;
-            bottom: 1.5rem; /* 24px from bottom */
-            left: 1.5rem; /* 24px from left */
-            z-index: 1000;
-        }
-        /* Hide inputs for printing */
-        @media print {
-            .input-group input,
-            .input-group select,
-            #theme-toggle-container,
-            #export-pdf-button,
-            #user-info {
-                display: none !important;
-            }
-            .calendar-table {
-                box-shadow: none;
-                border-radius: 0;
-            }
-            body {
-                background-color: #fff;
-                color: #000;
-            }
-            .calendar-table th, .calendar-table td {
-                border-color: #ccc;
-            }
-            .calendar-table th {
-                background-color: #e0e0e0;
-                color: #000;
-            }
-            .day-header {
-                background-color: #f0f0f0;
-                border-color: #ccc;
-                color: #000;
-            }
-            .time-slot {
-                color: #000;
-            }
-            /* Show actual values for printing */
-            .input-group::after {
-                content: attr(data-print-value);
-                display: block;
-                padding-top: 0.25rem;
-                font-weight: normal;
-                color: #333;
-            }
-            .input-group label {
-                display: inline; /* Keep label inline with content for print */
-                font-weight: bold;
-                margin-right: 0.5rem;
-            }
-            /* Ensure the text content is visible for printing */
-            input[type="text"], input[type="number"], select {
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-                print-color-adjust: exact;
-                background-color: transparent !important;
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                display: inline-block !important; /* show only value not input box */
-                width: auto !important;
-                font-size: 1rem !important; /* Default font size for print */
-            }
-            select {
-                appearance: none; /* Remove default select arrow */
-            }
-        }
     </style>
 </head>
 <body class="p-4">
@@ -244,9 +175,11 @@
             </tr>
         </thead>
         <tbody>
+            <!-- October 2025 -->
             <tr>
                 <td class="day-header" colspan="3">October 2025</td>
             </tr>
+            <!-- Saturday, October 18th -->
             <tr>
                 <td class="text-center font-bold text-lg">Sat 18th</td>
                 <td>
@@ -283,7 +216,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct18_pm_price">Price:</label>
-                        <input type="number" id="oct18_pm_price" data-date="oct18" data-slot="pm" data-field="price" placeholder="e.g., 200" min="0">
+                        <input type="number" id="oct18_pm_price" placeholder="e.g., 200" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct18_pm_paid">Paid:</label>
@@ -294,6 +227,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Sunday, October 19th -->
             <tr>
                 <td class="text-center font-bold text-lg">Sun 19th</td>
                 <td>
@@ -304,15 +238,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_location">Location:</label>
-                        <input type="text" id="oct19_am_location" data-date="oct19" data-slot="am" data-field="location" placeholder="e.g., Hollywood">
+                        <input type="text" id="oct19_am_location" placeholder="e.g., Hollywood">
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_price">Price:</label>
-                        <input type="number" id="oct19_am_price" data-date="oct19" data-slot="am" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct19_am_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_paid">Paid:</label>
-                        <select id="oct19_am_paid" data-date="oct19" data-slot="am" data-field="paid">
+                        <select id="oct19_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -326,21 +260,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_location">Location:</label>
-                        <input type="text" id="oct19_pm_location" data-date="oct19" data-slot="pm" data-field="location" placeholder="e.g., Los Angeles">
+                        <input type="text" id="oct19_pm_location" placeholder="e.g., Los Angeles">
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_price">Price:</label>
-                        <input type="number" id="oct19_pm_price" data-date="oct19" data-slot="pm" data-field="price" placeholder="e.g., 10" min="0">
+                        <input type="number" id="oct19_pm_price" placeholder="e.g., 10" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_paid">Paid:</label>
-                        <select id="oct19_pm_paid" data-date="oct19" data-slot="pm" data-field="paid">
+                        <select id="oct19_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Monday, October 20th -->
             <tr>
                 <td class="text-center font-bold text-lg">Mon 20th</td>
                 <td>
@@ -351,15 +286,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_location">Location:</label>
-                        <input type="text" id="oct20_am_location" data-date="oct20" data-slot="am" data-field="location" placeholder="e.g., Universal City">
+                        <input type="text" id="oct20_am_location" placeholder="e.g., Universal City">
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_price">Price:</label>
-                        <input type="number" id="oct20_am_price" data-date="oct20" data-slot="am" data-field="price" placeholder="e.g., 120" min="0">
+                        <input type="number" id="oct20_am_price" placeholder="e.g., 120" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_paid">Paid:</label>
-                        <select id="oct20_am_paid" data-date="oct20" data-slot="am" data-field="paid">
+                        <select id="oct20_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -373,21 +308,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_location">Location:</label>
-                        <input type="text" id="oct20_pm_location" data-date="oct20" data-slot="pm" data-field="location" placeholder="e.g., Universal City">
+                        <input type="text" id="oct20_pm_location" placeholder="e.g., Universal City">
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_price">Price:</label>
-                        <input type="number" id="oct20_pm_price" data-date="oct20" data-slot="pm" data-field="price" placeholder="e.g., 50" min="0">
+                        <input type="number" id="oct20_pm_price" placeholder="e.g., 50" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_paid">Paid:</label>
-                        <select id="oct20_pm_paid" data-date="oct20" data-slot="pm" data-field="paid">
+                        <select id="oct20_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Tuesday, October 21st -->
             <tr>
                 <td class="text-center font-bold text-lg">Tue 21st</td>
                 <td>
@@ -398,15 +334,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_location">Location:</label>
-                        <input type="text" id="oct21_am_location" data-date="oct21" data-slot="am" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct21_am_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_price">Price:</label>
-                        <input type="number" id="oct21_am_price" data-date="oct21" data-slot="am" data-field="price" placeholder="e.g., 30" min="0">
+                        <input type="number" id="oct21_am_price" placeholder="e.g., 30" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_paid">Paid:</label>
-                        <select id="oct21_am_paid" data-date="oct21" data-slot="am" data-field="paid">
+                        <select id="oct21_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -420,21 +356,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_location">Location:</label>
-                        <input type="text" id="oct21_pm_location" data-date="oct21" data-slot="pm" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct21_pm_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_price">Price:</label>
-                        <input type="number" id="oct21_pm_price" data-date="oct21" data-slot="pm" data-field="price" placeholder="e.g., 25" min="0">
+                        <input type="number" id="oct21_pm_price" placeholder="e.g., 25" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_paid">Paid:</label>
-                        <select id="oct21_pm_paid" data-date="oct21" data-slot="pm" data-field="paid">
+                        <select id="oct21_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Wednesday, October 22nd -->
             <tr>
                 <td class="text-center font-bold text-lg">Wed 22nd</td>
                 <td>
@@ -445,15 +382,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_location">Location:</label>
-                        <input type="text" id="oct22_am_location" data-date="oct22" data-slot="am" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct22_am_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_price">Price:</label>
-                        <input type="number" id="oct22_am_price" data-date="oct22" data-slot="am" data-field="price" placeholder="e.g., 60" min="0">
+                        <input type="number" id="oct22_am_price" placeholder="e.g., 60" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_paid">Paid:</label>
-                        <select id="oct22_am_paid" data-date="oct22" data-slot="am" data-field="paid">
+                        <select id="oct22_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -467,21 +404,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_location">Location:</label>
-                        <input type="text" id="oct22_pm_location" data-date="oct22" data-slot="pm" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct22_pm_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_price">Price:</label>
-                        <input type="number" id="oct22_pm_price" data-date="oct22" data-slot="pm" data-field="price" placeholder="e.g., 40" min="0">
+                        <input type="number" id="oct22_pm_price" placeholder="e.g., 40" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_paid">Paid:</label>
-                        <select id="oct22_pm_paid" data-date="oct22" data-slot="pm" data-field="paid">
+                        <select id="oct22_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Thursday, October 23rd -->
             <tr>
                 <td class="text-center font-bold text-lg">Thu 23rd</td>
                 <td>
@@ -492,15 +430,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_location">Location:</label>
-                        <input type="text" id="oct23_am_location" data-date="oct23" data-slot="am" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct23_am_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_price">Price:</label>
-                        <input type="number" id="oct23_am_price" data-date="oct23" data-slot="am" data-field="price" placeholder="e.g., 20" min="0">
+                        <input type="number" id="oct23_am_price" placeholder="e.g., 20" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_paid">Paid:</label>
-                        <select id="oct23_am_paid" data-date="oct23" data-slot="am" data-field="paid">
+                        <select id="oct23_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -514,21 +452,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_location">Location:</label>
-                        <input type="text" id="oct23_pm_location" data-date="oct23" data-slot="pm" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct23_pm_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_price">Price:</label>
-                        <input type="number" id="oct23_pm_price" data-date="oct23" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct23_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_paid">Paid:</label>
-                        <select id="oct23_pm_paid" data-date="oct23" data-slot="pm" data-field="paid">
+                        <select id="oct23_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Friday, October 24th -->
             <tr>
                 <td class="text-center font-bold text-lg">Fri 24th</td>
                 <td>
@@ -539,15 +478,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_location">Location:</label>
-                        <input type="text" id="oct24_am_location" data-date="oct24" data-slot="am" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct24_am_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_price">Price:</label>
-                        <input type="number" id="oct24_am_price" data-date="oct24" data-slot="am" data-field="price" placeholder="e.g., 150" min="0">
+                        <input type="number" id="oct24_am_price" placeholder="e.g., 150" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_paid">Paid:</label>
-                        <select id="oct24_am_paid" data-date="oct24" data-slot="am" data-field="paid">
+                        <select id="oct24_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -561,21 +500,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_location">Location:</label>
-                        <input type="text" id="oct24_pm_location" data-date="oct24" data-slot="pm" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct24_pm_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_price">Price:</label>
-                        <input type="number" id="oct24_pm_price" data-date="oct24" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct24_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_paid">Paid:</label>
-                        <select id="oct24_pm_paid" data-date="oct24" data-slot="pm" data-field="paid">
+                        <select id="oct24_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Saturday, October 25th -->
             <tr>
                 <td class="text-center font-bold text-lg">Sat 25th</td>
                 <td>
@@ -586,15 +526,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct25_am_location">Location:</label>
-                        <input type="text" id="oct25_am_location" data-date="oct25" data-slot="am" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct25_am_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct25_am_price">Price:</label>
-                        <input type="number" id="oct25_am_price" data-date="oct25" data-slot="am" data-field="price" placeholder="e.g., 150" min="0">
+                        <input type="number" id="oct25_am_price" placeholder="e.g., 150" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct25_am_paid">Paid:</label>
-                        <select id="oct25_am_paid" data-date="oct25" data-slot="am" data-field="paid">
+                        <select id="oct25_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -608,21 +548,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct25_pm_location">Location:</label>
-                        <input type="text" id="oct25_pm_location" data-date="oct25" data-slot="pm" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct25_pm_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct25_pm_price">Price:</label>
-                        <input type="number" id="oct25_pm_price" data-date="oct25" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct25_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct25_pm_paid">Paid:</label>
-                        <select id="oct25_pm_paid" data-date="oct25" data-slot="pm" data-field="paid">
+                        <select id="oct25_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Sunday, October 26th -->
             <tr>
                 <td class="text-center font-bold text-lg">Sun 26th</td>
                 <td>
@@ -633,15 +574,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct26_am_location">Location:</label>
-                        <input type="text" id="oct26_am_location" data-date="oct26" data-slot="am" data-field="location" placeholder="e.g., Santa Barbara">
+                        <input type="text" id="oct26_am_location" placeholder="e.g., Santa Barbara">
                     </div>
                     <div class="input-group">
                         <label for="oct26_am_price">Price:</label>
-                        <input type="number" id="oct26_am_price" data-date="oct26" data-slot="am" data-field="price" placeholder="e.g., 40" min="0">
+                        <input type="number" id="oct26_am_price" placeholder="e.g., 40" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct26_am_paid">Paid:</label>
-                        <select id="oct26_am_paid" data-date="oct26" data-slot="am" data-field="paid">
+                        <select id="oct26_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -655,21 +596,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct26_pm_location">Location:</label>
-                        <input type="text" id="oct26_pm_location" data-date="oct26" data-slot="pm" data-field="location" placeholder="e.g., Santa Barbara">
+                        <input type="text" id="oct26_pm_location" placeholder="e.g., Santa Barbara">
                     </div>
                     <div class="input-group">
                         <label for="oct26_pm_price">Price:</label>
-                        <input type="number" id="oct26_pm_price" data-date="oct26" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct26_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct26_pm_paid">Paid:</label>
-                        <select id="oct26_pm_paid" data-date="oct26" data-slot="pm" data-field="paid">
+                        <select id="oct26_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Monday, October 27th -->
             <tr>
                 <td class="text-center font-bold text-lg">Mon 27th</td>
                 <td>
@@ -680,15 +622,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct27_am_location">Location:</label>
-                        <input type="text" id="oct27_am_location" data-date="oct27" data-slot="am" data-field="location" placeholder="e.g., Santa Barbara">
+                        <input type="text" id="oct27_am_location" placeholder="e.g., Santa Barbara">
                     </div>
                     <div class="input-group">
                         <label for="oct27_am_price">Price:</label>
-                        <input type="number" id="oct27_am_price" data-date="oct27" data-slot="am" data-field="price" placeholder="e.g., 15" min="0">
+                        <input type="number" id="oct27_am_price" placeholder="e.g., 15" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct27_am_paid">Paid:</label>
-                        <select id="oct27_am_paid" data-date="oct27" data-slot="am" data-field="paid">
+                        <select id="oct27_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -702,21 +644,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct27_pm_location">Location:</label>
-                        <input type="text" id="oct27_pm_location" data-date="oct27" data-slot="pm" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct27_pm_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct27_pm_price">Price:</label>
-                        <input type="number" id="oct27_pm_price" data-date="oct27" data-slot="pm" data-field="price" placeholder="e.g., 80" min="0">
+                        <input type="number" id="oct27_pm_price" placeholder="e.g., 80" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct27_pm_paid">Paid:</label>
-                        <select id="oct27_pm_paid" data-date="oct27" data-slot="pm" data-field="paid">
+                        <select id="oct27_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Tuesday, October 28th -->
             <tr>
                 <td class="text-center font-bold text-lg">Tue 28th</td>
                 <td>
@@ -727,15 +670,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct28_am_location">Location:</label>
-                        <input type="text" id="oct28_am_location" data-date="oct28" data-slot="am" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct28_am_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct28_am_price">Price:</label>
-                        <input type="number" id="oct28_am_price" data-date="oct28" data-slot="am" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct28_am_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct28_am_paid">Paid:</label>
-                        <select id="oct28_am_paid" data-date="oct28" data-slot="am" data-field="paid">
+                        <select id="oct28_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -749,21 +692,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct28_pm_location">Location:</label>
-                        <input type="text" id="oct28_pm_location" data-date="oct28" data-slot="pm" data-field="location" placeholder="e.g., San Francisco Bay">
+                        <input type="text" id="oct28_pm_location" placeholder="e.g., San Francisco Bay">
                     </div>
                     <div class="input-group">
                         <label for="oct28_pm_price">Price:</label>
-                        <input type="number" id="oct28_pm_price" data-date="oct28" data-slot="pm" data-field="price" placeholder="e.g., 40" min="0">
+                        <input type="number" id="oct28_pm_price" placeholder="e.g., 40" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct28_pm_paid">Paid:</label>
-                        <select id="oct28_pm_paid" data-date="oct28" data-slot="pm" data-field="paid">
+                        <select id="oct28_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Wednesday, October 29th -->
             <tr>
                 <td class="text-center font-bold text-lg">Wed 29th</td>
                 <td>
@@ -774,15 +718,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct29_am_location">Location:</label>
-                        <input type="text" id="oct29_am_location" data-date="oct29" data-slot="am" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct29_am_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct29_am_price">Price:</label>
-                        <input type="number" id="oct29_am_price" data-date="oct29" data-slot="am" data-field="price" placeholder="e.g., 30" min="0">
+                        <input type="number" id="oct29_am_price" placeholder="e.g., 30" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct29_am_paid">Paid:</label>
-                        <select id="oct29_am_paid" data-date="oct29" data-slot="am" data-field="paid">
+                        <select id="oct29_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -796,21 +740,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct29_pm_location">Location:</label>
-                        <input type="text" id="oct29_pm_location" data-date="oct29" data-slot="pm" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct29_pm_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct29_pm_price">Price:</label>
-                        <input type="number" id="oct29_pm_price" data-date="oct29" data-slot="pm" data-field="price" placeholder="e.g., 8" min="0">
+                        <input type="number" id="oct29_pm_price" placeholder="e.g., 8" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct29_pm_paid">Paid:</label>
-                        <select id="oct29_pm_paid" data-date="oct29" data-slot="pm" data-field="paid">
+                        <select id="oct29_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Thursday, October 30th -->
             <tr>
                 <td class="text-center font-bold text-lg">Thu 30th</td>
                 <td>
@@ -821,15 +766,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct30_am_location">Location:</label>
-                        <input type="text" id="oct30_am_location" data-date="oct30" data-slot="am" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct30_am_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct30_am_price">Price:</label>
-                        <input type="number" id="oct30_am_price" data-date="oct30" data-slot="am" data-field="price" placeholder="e.g., 35" min="0">
+                        <input type="number" id="oct30_am_price" placeholder="e.g., 35" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct30_am_paid">Paid:</label>
-                        <select id="oct30_am_paid" data-date="oct30" data-slot="am" data-field="paid">
+                        <select id="oct30_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -843,21 +788,22 @@
                     </div>
                     <div class="input-group">
                         <label for="oct30_pm_location">Location:</label>
-                        <input type="text" id="oct30_pm_location" data-date="oct30" data-slot="pm" data-field="location" placeholder="e.g., San Francisco">
+                        <input type="text" id="oct30_pm_location" placeholder="e.g., San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct30_pm_price">Price:</label>
-                        <input type="number" id="oct30_pm_price" data-date="oct30" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct30_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct30_pm_paid">Paid:</label>
-                        <select id="oct30_pm_paid" data-date="oct30" data-slot="pm" data-field="paid">
+                        <select id="oct30_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
                     </div>
                 </td>
             </tr>
+            <!-- Friday, October 31st -->
             <tr>
                 <td class="text-center font-bold text-lg">Fri 31st</td>
                 <td>
@@ -868,15 +814,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct31_am_location">Location:</label>
-                        <input type="text" id="oct31_am_location" data-date="oct31" data-slot="am" data-field="location" placeholder="e.g., Napa Valley">
+                        <input type="text" id="oct31_am_location" placeholder="e.g., Napa Valley">
                     </div>
                     <div class="input-group">
                         <label for="oct31_am_price">Price:</label>
-                        <input type="number" id="oct31_am_price" data-date="oct31" data-slot="am" data-field="price" placeholder="e.g., 100" min="0">
+                        <input type="number" id="oct31_am_price" placeholder="e.g., 100" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct31_am_paid">Paid:</label>
-                        <select id="oct31_am_paid" data-date="oct31" data-slot="am" data-field="paid">
+                        <select id="oct31_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -890,15 +836,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct31_pm_location">Location:</label>
-                        <input type="text" id="oct31_pm_location" data-date="oct31" data-slot="pm" data-field="location" placeholder="e.g., Napa Valley">
+                        <input type="text" id="oct31_pm_location" placeholder="e.g., Napa Valley">
                     </div>
                     <div class="input-group">
                         <label for="oct31_pm_price">Price:</label>
-                        <input type="number" id="oct31_pm_price" data-date="oct31" data-slot="pm" data-field="price" placeholder="e.g., 70" min="0">
+                        <input type="number" id="oct31_pm_price" placeholder="e.g., 70" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct31_pm_paid">Paid:</label>
-                        <select id="oct31_pm_paid" data-date="oct31" data-slot="pm" data-field="paid">
+                        <select id="oct31_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -906,9 +852,11 @@
                 </td>
             </tr>
 
+            <!-- November 2025 -->
             <tr>
                 <td class="day-header" colspan="3">November 2025</td>
             </tr>
+            <!-- Saturday, November 1st -->
             <tr>
                 <td class="text-center font-bold text-lg">Sat 1st</td>
                 <td>
@@ -919,11 +867,11 @@
                     </div>
                     <div class="input-group">
                         <label for="nov01_am_location">Location:</label>
-                        <input type="text" id="nov01_am_location" data-date="nov01" data-slot="am" data-field="location" placeholder="e.g., Los Angeles">
+                        <input type="text" id="nov01_am_location" placeholder="e.g., Los Angeles">
                     </div>
                     <div class="input-group">
                         <label for="nov01_am_price">Price:</label>
-                        <input type="number" id="nov01_am_price" data-date="nov01" data-slot="am" data-field="price" placeholder="e.g., 50" min="0">
+                        <input type="number" id="nov01_am_price" placeholder="e.g., 50" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov01_am_paid">Paid:</label>
@@ -941,11 +889,11 @@
                     </div>
                     <div class="input-group">
                         <label for="nov01_pm_location">Location:</label>
-                        <input type="text" id="nov01_pm_location" data-date="nov01" data-slot="pm" data-field="location" placeholder="e.g., Santa Monica">
+                        <input type="text" id="nov01_pm_location" placeholder="e.g., Santa Monica">
                     </div>
                     <div class="input-group">
                         <label for="nov01_pm_price">Price:</label>
-                        <input type="number" id="nov01_pm_price" data-date="nov01" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="nov01_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov01_pm_paid">Paid:</label>
@@ -956,6 +904,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Sunday, November 2nd -->
             <tr>
                 <td class="text-center font-bold text-lg">Sun 2nd</td>
                 <td>
@@ -966,11 +915,11 @@
                     </div>
                     <div class="input-group">
                         <label for="nov02_am_location">Location:</label>
-                        <input type="text" id="nov02_am_location" data-date="nov02" data-slot="am" data-field="location" placeholder="e.g., Venice Beach">
+                        <input type="text" id="nov02_am_location" placeholder="e.g., Venice Beach">
                     </div>
                     <div class="input-group">
                         <label for="nov02_am_price">Price:</label>
-                        <input type="number" id="nov02_am_price" data-date="nov02" data-slot="am" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="nov02_am_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov02_am_paid">Paid:</label>
@@ -988,11 +937,11 @@
                     </div>
                     <div class="input-group">
                         <label for="nov02_pm_location">Location:</label>
-                        <input type="text" id="nov02_pm_location" data-date="nov02" data-slot="pm" data-field="location" placeholder="e.g., Santa Monica Pier">
+                        <input type="text" id="nov02_pm_location" placeholder="e.g., Santa Monica Pier">
                     </div>
                     <div class="input-group">
                         <label for="nov02_pm_price">Price:</label>
-                        <input type="number" id="nov02_pm_price" data-date="nov02" data-slot="pm" data-field="price" placeholder="e.g., 60" min="0">
+                        <input type="number" id="nov02_pm_price" placeholder="e.g., 60" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov02_pm_paid">Paid:</label>
@@ -1003,6 +952,7 @@
                     </div>
                 </td>
             </tr>
+            <!-- Monday, November 3rd -->
             <tr>
                 <td class="text-center font-bold text-lg">Mon 3rd</td>
                 <td>
@@ -1013,11 +963,11 @@
                     </div>
                     <div class="input-group">
                         <label for="nov03_am_location">Location:</label>
-                        <input type="text" id="nov03_am_location" data-date="nov03" data-slot="am" data-field="location" placeholder="e.g., Los Angeles Airport">
+                        <input type="text" id="nov03_am_location" placeholder="e.g., Los Angeles Airport">
                     </div>
                     <div class="input-group">
                         <label for="nov03_am_price">Price:</label>
-                        <input type="number" id="nov03_am_price" data-date="nov03" data-slot="am" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="nov03_am_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov03_am_paid">Paid:</label>
@@ -1035,15 +985,15 @@
                     </div>
                     <div class="input-group">
                         <label for="nov03_pm_location">Location:</label>
-                        <input type="text" id="nov03_pm_location" data-date="nov03" data-slot="pm" data-field="location" placeholder="e.g., LAX">
+                        <input type="text" id="nov03_pm_location" placeholder="e.g., LAX">
                     </div>
                     <div class="input-group">
                         <label for="nov03_pm_price">Price:</label>
-                        <input type="number" id="nov03_pm_price" data-date="nov03" data-slot="pm" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="nov03_pm_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov03_pm_paid">Paid:</label>
-                        <select id="nov03_pm_paid" data-date="nov03" data-slot="pm" data-field="paid">
+                        <select id="nov03_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -1063,10 +1013,6 @@
             </svg>
         </button>
     </div>
-
-    <button id="export-pdf-button" class="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300">
-        Export to PDF 📄
-    </button>
 
     <script>
         // --- Theme Toggle ---
@@ -1174,116 +1120,6 @@
             input.addEventListener('input', saveCalendarData); // Also listen for input for text/number fields
         });
 
-        // --- PDF Export Functionality ---
-        const exportPdfButton = document.getElementById('export-pdf-button');
-
-        exportPdfButton.addEventListener('click', async () => {
-            const { jsPDF } = window.jspdf;
-            const element = document.getElementById('calendar-table');
-
-            // Temporarily adjust styles for better PDF rendering
-            const originalBodyOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden'; // Hide scrollbars during capture
-
-            // Hide the buttons and user info for the screenshot
-            const themeToggleContainer = document.getElementById('theme-toggle-container');
-            const userInfo = document.getElementById('user-info');
-            themeToggleContainer.style.display = 'none';
-            exportPdfButton.style.display = 'none';
-            userInfo.style.display = 'none';
-
-            // Iterate over all input-group elements and set data-print-value
-            document.querySelectorAll('.input-group').forEach(group => {
-                const input = group.querySelector('input, select');
-                if (input) {
-                    let displayValue = input.value;
-                    if (input.type === 'number') {
-                        displayValue = parseFloat(input.value) > 0 ? `$${input.value}` : ''; // Format price
-                    } else if (input.tagName === 'SELECT') {
-                        displayValue = input.options[input.selectedIndex].text; // Get text for select
-                    }
-                    group.setAttribute('data-print-value', displayValue);
-                }
-            });
-
-            // Capture the content as a canvas
-            const canvas = await html2canvas(element, {
-                scale: 2, // Increase scale for better resolution in PDF
-                useCORS: true, // If you have external images/fonts, enable this
-                logging: true,
-                onclone: (document) => {
-                    // This callback runs on the cloned document right before rendering
-                    // Apply print-specific styles to the cloned document
-                    const clonedBody = document.body;
-                    clonedBody.style.backgroundColor = '#ffffff'; // White background for PDF
-                    clonedBody.style.color = '#000000'; // Black text for PDF
-                    const clonedTable = document.getElementById('calendar-table');
-                    if (clonedTable) {
-                        clonedTable.classList.remove('dark'); // Ensure no dark mode styles
-                        clonedTable.style.boxShadow = 'none'; // No shadow
-                        clonedTable.style.borderRadius = '0'; // No border radius
-                    }
-                    document.querySelectorAll('.input-group input, .input-group select').forEach(input => {
-                        input.style.display = 'none'; // Hide the actual input fields
-                    });
-                    document.querySelectorAll('.input-group').forEach(group => {
-                        const label = group.querySelector('label');
-                        if (label) {
-                            label.style.display = 'inline';
-                            label.style.fontWeight = 'bold';
-                            label.style.marginRight = '0.5rem';
-                        }
-                        const valueSpan = document.createElement('span');
-                        valueSpan.textContent = group.getAttribute('data-print-value');
-                        valueSpan.style.display = 'inline-block';
-                        valueSpan.style.paddingTop = '0.25rem';
-                        valueSpan.style.fontWeight = 'normal';
-                        valueSpan.style.color = '#333';
-                        group.appendChild(valueSpan);
-                    });
-                }
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4'); // 'p' for portrait, 'mm' for millimeters, 'a4' for A4 size
-
-            const imgWidth = 210; // A4 width in mm
-            const pageHeight = 297; // A4 height in mm
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            let position = 0;
-
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
-            pdf.save('California_Holiday_Planner.pdf');
-
-            // Restore original styles
-            themeToggleContainer.style.display = 'block';
-            exportPdfButton.style.display = 'block';
-            userInfo.style.display = 'block';
-            document.body.style.overflow = originalBodyOverflow; // Restore overflow
-            document.querySelectorAll('.input-group').forEach(group => {
-                const input = group.querySelector('input, select');
-                if (input) {
-                    input.style.display = ''; // Restore input field display
-                }
-                // Remove the added span for printing
-                const valueSpan = group.querySelector('span:last-child');
-                if (valueSpan && valueSpan.textContent === group.getAttribute('data-print-value')) {
-                    group.removeChild(valueSpan);
-                }
-                group.removeAttribute('data-print-value');
-            });
-        });
     </script>
 </body>
 </html>
