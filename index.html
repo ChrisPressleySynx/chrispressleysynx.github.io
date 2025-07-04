@@ -148,22 +148,19 @@
                 font-size: 0.85rem;
             }
         }
+        /* Floating button position */
+        #theme-toggle-container {
+            position: fixed;
+            bottom: 1.5rem; /* 24px from bottom */
+            right: 1.5rem; /* 24px from right */
+            z-index: 1000; /* Ensure it's above other content */
+        }
     </style>
 </head>
 <body class="p-4">
-    <div class="flex justify-between items-center mb-8 mt-4">
-        <h1 class="text-4xl font-extrabold text-gray-900 rounded-lg p-3 shadow-md bg-gradient-to-r from-blue-500 to-purple-600 text-white dark:text-white dark:from-gray-700 dark:to-gray-900">
-            California Holiday Planner ☀️
-        </h1>
-        <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
-            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.325l-.707.707M18.325 5.382l.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path>
-            </svg>
-            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-        </button>
-    </div>
+    <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8 mt-4 rounded-lg p-3 shadow-md bg-gradient-to-r from-blue-500 to-purple-600 text-white dark:text-white dark:from-gray-700 dark:to-gray-900">
+        California Holiday Planner ☀️
+    </h1>
 
     <div id="user-info" class="text-center text-gray-700 dark:text-gray-300 mb-4">
         <p class="text-sm">Your data is saved in your browser's local storage. It will not synchronize with other devices or users.</p>
@@ -219,7 +216,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct18_pm_price">Price:</label>
-                        <input type="number" id="oct18_pm_price" data-date="oct18" data-slot="pm" data-field="price" placeholder="e.g., 200" min="0">
+                        <input type="number" id="oct18_pm_price" placeholder="e.g., 200" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct18_pm_paid">Paid:</label>
@@ -241,15 +238,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_location">Location:</label>
-                        <input type="text" id="oct19_am_location" data-date="oct19" data-slot="am" data-field="location" placeholder="e.g., Hollywood">
+                        <input type="text" id="oct19_am_location" placeholder="e.g., Hollywood">
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_price">Price:</label>
-                        <input type="number" id="oct19_am_price" data-date="oct19" data-slot="am" data-field="price" placeholder="e.g., 0" min="0">
+                        <input type="number" id="oct19_am_price" placeholder="e.g., 0" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct19_am_paid">Paid:</label>
-                        <select id="oct19_am_paid" data-date="oct19" data-slot="am" data-field="paid">
+                        <select id="oct19_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -263,7 +260,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_location">Location:</label>
-                        <input type="text" id="oct19_pm_location" data-date="oct19" data-slot="pm" data-field="location" placeholder="e.g., Los Angeles">
+                        <input type="text" id="oct19_pm_location" placeholder="e.g., Los Angeles">
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_price">Price:</label>
@@ -271,7 +268,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct19_pm_paid">Paid:</label>
-                        <select id="oct19_pm_paid" data-date="oct19" data-slot="pm" data-field="paid">
+                        <select id="oct19_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -289,15 +286,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_location">Location:</label>
-                        <input type="text" id="oct20_am_location" data-date="oct20" data-slot="am" data-field="location" placeholder="e.g., Universal City">
+                        <input type="text" id="oct20_am_location" placeholder="e.g., Universal City">
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_price">Price:</label>
-                        <input type="number" id="oct20_am_price" data-date="oct20" data-slot="am" data-field="price" placeholder="e.g., 120" min="0">
+                        <input type="number" id="oct20_am_price" placeholder="e.g., 120" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct20_am_paid">Paid:</label>
-                        <select id="oct20_am_paid" data-date="oct20" data-slot="am" data-field="paid">
+                        <select id="oct20_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -311,7 +308,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_location">Location:</label>
-                        <input type="text" id="oct20_pm_location" data-date="oct20" data-slot="pm" data-field="location" placeholder="e.g., Universal City">
+                        <input type="text" id="oct20_pm_location" placeholder="e.g., Universal City">
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_price">Price:</label>
@@ -319,7 +316,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct20_pm_paid">Paid:</label>
-                        <select id="oct20_pm_paid" data-date="oct20" data-slot="pm" data-field="paid">
+                        <select id="oct20_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -337,15 +334,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_location">Location:</label>
-                        <input type="text" id="oct21_am_location" data-date="oct21" data-slot="am" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct21_am_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_price">Price:</label>
-                        <input type="number" id="oct21_am_price" data-date="oct21" data-slot="am" data-field="price" placeholder="e.g., 30" min="0">
+                        <input type="number" id="oct21_am_price" placeholder="e.g., 30" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct21_am_paid">Paid:</label>
-                        <select id="oct21_am_paid" data-date="oct21" data-slot="am" data-field="paid">
+                        <select id="oct21_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -359,7 +356,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_location">Location:</label>
-                        <input type="text" id="oct21_pm_location" data-date="oct21" data-slot="pm" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct21_pm_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_price">Price:</label>
@@ -367,7 +364,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct21_pm_paid">Paid:</label>
-                        <select id="oct21_pm_paid" data-date="oct21" data-slot="pm" data-field="paid">
+                        <select id="oct21_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -385,15 +382,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_location">Location:</label>
-                        <input type="text" id="oct22_am_location" data-date="oct22" data-slot="am" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct22_am_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_price">Price:</label>
-                        <input type="number" id="oct22_am_price" data-date="oct22" data-slot="am" data-field="price" placeholder="e.g., 60" min="0">
+                        <input type="number" id="oct22_am_price" placeholder="e.g., 60" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct22_am_paid">Paid:</label>
-                        <select id="oct22_am_paid" data-date="oct22" data-slot="am" data-field="paid">
+                        <select id="oct22_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -407,7 +404,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_location">Location:</label>
-                        <input type="text" id="oct22_pm_location" data-date="oct22" data-slot="pm" data-field="location" placeholder="e.g., San Diego">
+                        <input type="text" id="oct22_pm_location" placeholder="e.g., San Diego">
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_price">Price:</label>
@@ -415,7 +412,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct22_pm_paid">Paid:</label>
-                        <select id="oct22_pm_paid" data-date="oct22" data-slot="pm" data-field="paid">
+                        <select id="oct22_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -433,15 +430,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_location">Location:</label>
-                        <input type="text" id="oct23_am_location" data-date="oct23" data-slot="am" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct23_am_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_price">Price:</label>
-                        <input type="number" id="oct23_am_price" data-date="oct23" data-slot="am" data-field="price" placeholder="e.g., 20" min="0">
+                        <input type="number" id="oct23_am_price" placeholder="e.g., 20" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct23_am_paid">Paid:</label>
-                        <select id="oct23_am_paid" data-date="oct23" data-slot="am" data-field="paid">
+                        <select id="oct23_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -455,7 +452,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_location">Location:</label>
-                        <input type="text" id="oct23_pm_location" data-date="oct23" data-slot="pm" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct23_pm_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_price">Price:</label>
@@ -463,7 +460,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct23_pm_paid">Paid:</label>
-                        <select id="oct23_pm_paid" data-date="oct23" data-slot="pm" data-field="paid">
+                        <select id="oct23_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -481,15 +478,15 @@
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_location">Location:</label>
-                        <input type="text" id="oct24_am_location" data-date="oct24" data-slot="am" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct24_am_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_price">Price:</label>
-                        <input type="number" id="oct24_am_price" data-date="oct24" data-slot="am" data-field="price" placeholder="e.g., 150" min="0">
+                        <input type="number" id="oct24_am_price" placeholder="e.g., 150" min="0">
                     </div>
                     <div class="input-group">
                         <label for="oct24_am_paid">Paid:</label>
-                        <select id="oct24_am_paid" data-date="oct24" data-slot="am" data-field="paid">
+                        <select id="oct24_am_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -503,7 +500,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_location">Location:</label>
-                        <input type="text" id="oct24_pm_location" data-date="oct24" data-slot="pm" data-field="location" placeholder="e.g., Anaheim">
+                        <input type="text" id="oct24_pm_location" placeholder="e.g., Anaheim">
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_price">Price:</label>
@@ -511,7 +508,7 @@
                     </div>
                     <div class="input-group">
                         <label for="oct24_pm_paid">Paid:</label>
-                        <select id="oct24_pm_paid" data-date="oct24" data-slot="pm" data-field="paid">
+                        <select id="oct24_pm_paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -547,7 +544,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct25_pm_activity">Activity:</label>
-                        <input type="text" id="oct25_pm_activity" placeholder="e.g., Disney California Adventure (continued)">
+                        <input type="text" id="oct25_pm_activity" data-date="oct25" data-slot="pm" data-field="activity" placeholder="e.g., Disney California Adventure (continued)">
                     </div>
                     <div class="input-group">
                         <label for="oct25_pm_location">Location:</label>
@@ -573,7 +570,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct26_am_activity">Activity:</label>
-                        <input type="text" id="oct26_am_activity" placeholder="e.g., Drive to Santa Barbara">
+                        <input type="text" id="oct26_am_activity" data-date="oct26" data-slot="am" data-field="activity" placeholder="e.g., Drive to Santa Barbara">
                     </div>
                     <div class="input-group">
                         <label for="oct26_am_location">Location:</label>
@@ -595,7 +592,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct26_pm_activity">Activity:</label>
-                        <input type="text" id="oct26_pm_activity" placeholder="e.g., Stearns Wharf & Beach">
+                        <input type="text" id="oct26_pm_activity" data-date="oct26" data-slot="pm" data-field="activity" placeholder="e.g., Stearns Wharf & Beach">
                     </div>
                     <div class="input-group">
                         <label for="oct26_pm_location">Location:</label>
@@ -621,7 +618,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct27_am_activity">Activity:</label>
-                        <input type="text" id="oct27_am_activity" placeholder="e.g., Mission Santa Barbara">
+                        <input type="text" id="oct27_am_activity" data-date="oct27" data-slot="am" data-field="activity" placeholder="e.g., Mission Santa Barbara">
                     </div>
                     <div class="input-group">
                         <label for="oct27_am_location">Location:</label>
@@ -643,7 +640,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct27_pm_activity">Activity:</label>
-                        <input type="text" id="oct27_pm_activity" placeholder="e.g., Drive to San Francisco">
+                        <input type="text" id="oct27_pm_activity" data-date="oct27" data-slot="pm" data-field="activity" placeholder="e.g., Drive to San Francisco">
                     </div>
                     <div class="input-group">
                         <label for="oct27_pm_location">Location:</label>
@@ -669,7 +666,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct28_am_activity">Activity:</label>
-                        <input type="text" id="oct28_am_activity" placeholder="e.g., Golden Gate Bridge">
+                        <input type="text" id="oct28_am_activity" data-date="oct28" data-slot="am" data-field="activity" placeholder="e.g., Golden Gate Bridge">
                     </div>
                     <div class="input-group">
                         <label for="oct28_am_location">Location:</label>
@@ -691,7 +688,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct28_pm_activity">Activity:</label>
-                        <input type="text" id="oct28_pm_activity" placeholder="e.g., Alcatraz Island Tour">
+                        <input type="text" id="oct28_pm_activity" data-date="oct28" data-slot="pm" data-field="activity" placeholder="e.g., Alcatraz Island Tour">
                     </div>
                     <div class="input-group">
                         <label for="oct28_pm_location">Location:</label>
@@ -717,7 +714,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct29_am_activity">Activity:</label>
-                        <input type="text" id="oct29_am_activity" placeholder="e.g., Fisherman's Wharf">
+                        <input type="text" id="oct29_am_activity" data-date="oct29" data-slot="am" data-field="activity" placeholder="e.g., Fisherman's Wharf">
                     </div>
                     <div class="input-group">
                         <label for="oct29_am_location">Location:</label>
@@ -739,7 +736,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct29_pm_activity">Activity:</label>
-                        <input type="text" id="oct29_pm_activity" placeholder="e.g., Cable Car Ride & Lombard Street">
+                        <input type="text" id="oct29_pm_activity" data-date="oct29" data-slot="pm" data-field="activity" placeholder="e.g., Cable Car Ride & Lombard Street">
                     </div>
                     <div class="input-group">
                         <label for="oct29_pm_location">Location:</label>
@@ -765,7 +762,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct30_am_activity">Activity:</label>
-                        <input type="text" id="oct30_am_activity" placeholder="e.g., Exploratorium">
+                        <input type="text" id="oct30_am_activity" data-date="oct30" data-slot="am" data-field="activity" placeholder="e.g., Exploratorium">
                     </div>
                     <div class="input-group">
                         <label for="oct30_am_location">Location:</label>
@@ -787,7 +784,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct30_pm_activity">Activity:</label>
-                        <input type="text" id="oct30_pm_activity" placeholder="e.g., Golden Gate Park">
+                        <input type="text" id="oct30_pm_activity" data-date="oct30" data-slot="pm" data-field="activity" placeholder="e.g., Golden Gate Park">
                     </div>
                     <div class="input-group">
                         <label for="oct30_pm_location">Location:</label>
@@ -813,7 +810,7 @@
                     <span class="time-slot">Morning:</span>
                     <div class="input-group">
                         <label for="oct31_am_activity">Activity:</label>
-                        <input type="text" id="oct31_am_activity" placeholder="e.g., Napa Valley Wine Tour">
+                        <input type="text" id="oct31_am_activity" data-date="oct31" data-slot="am" data-field="activity" placeholder="e.g., Napa Valley Wine Tour">
                     </div>
                     <div class="input-group">
                         <label for="oct31_am_location">Location:</label>
@@ -835,7 +832,7 @@
                     <span class="time-slot">Afternoon:</span>
                     <div class="input-group">
                         <label for="oct31_pm_activity">Activity:</label>
-                        <input type="text" id="oct31_pm_activity" placeholder="e.g., Dinner in Napa">
+                        <input type="text" id="oct31_pm_activity" data-date="oct31" data-slot="pm" data-field="activity" placeholder="e.g., Dinner in Napa">
                     </div>
                     <div class="input-group">
                         <label for="oct31_pm_location">Location:</label>
@@ -874,7 +871,7 @@
                     </div>
                     <div class="input-group">
                         <label for="nov01_am_price">Price:</label>
-                        <input type="number" id="nov01_am_price" data-date="nov01" data-slot="am" data-field="price" placeholder="e.g., 50" min="0">
+                        <input type="number" id="nov01_am_price" placeholder="e.g., 50" min="0">
                     </div>
                     <div class="input-group">
                         <label for="nov01_am_paid">Paid:</label>
@@ -926,7 +923,7 @@
                     </div>
                     <div class="input-group">
                         <label for="nov02_am_paid">Paid:</label>
-                        <select id="nov02_am_paid">
+                        <select id="nov02_am_paid" data-date="nov02" data-slot="am" data-field="paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -948,7 +945,7 @@
                     </div>
                     <div class="input-group">
                         <label for="nov02_pm_paid">Paid:</label>
-                        <select id="nov02_pm_paid">
+                        <select id="nov02_pm_paid" data-date="nov02" data-slot="pm" data-field="paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -974,7 +971,7 @@
                     </div>
                     <div class="input-group">
                         <label for="nov03_am_paid">Paid:</label>
-                        <select id="nov03_am_paid">
+                        <select id="nov03_am_paid" data-date="nov03" data-slot="am" data-field="paid">
                             <option value="no">No</option>
                             <option value="yes">Yes</option>
                         </select>
@@ -1006,39 +1003,68 @@
         </tbody>
     </table>
 
+    <div id="theme-toggle-container">
+        <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.325l-.707.707M18.325 5.382l.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z"></path>
+            </svg>
+            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </div>
+
     <script>
-        // --- Dark Mode Toggle ---
+        // --- Theme Toggle ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
         const calendarTable = document.getElementById('calendar-table');
 
-        // Check for saved theme preference or system preference
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark');
-            calendarTable.classList.add('dark');
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
-        } else {
-            document.body.classList.remove('dark');
-            calendarTable.classList.remove('dark');
-            sunIcon.classList.remove('hidden');
-            moonIcon.classList.add('hidden');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            calendarTable.classList.toggle('dark');
-
-            if (document.body.classList.contains('dark')) {
-                localStorage.setItem('theme', 'dark');
+        // Function to apply the theme classes and icon visibility
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark');
+                calendarTable.classList.add('dark');
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
             } else {
-                localStorage.setItem('theme', 'light');
+                document.body.classList.remove('dark');
+                calendarTable.classList.remove('dark');
                 sunIcon.classList.remove('hidden');
                 moonIcon.classList.add('hidden');
+            }
+        }
+
+        // On load, determine initial theme: user's explicit choice > system preference > default light
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme'); // User's explicit choice
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; // System preference
+
+            if (savedTheme) {
+                // If user has explicitly set a theme, use that
+                applyTheme(savedTheme);
+            } else if (prefersDark) {
+                // If no explicit choice, but system prefers dark, use dark
+                applyTheme('dark');
+            } else {
+                // Otherwise, default to light
+                applyTheme('light');
+            }
+
+            // Load calendar data after theme is applied
+            loadCalendarData();
+        });
+
+        // Event listener for the theme toggle button
+        themeToggleBtn.addEventListener('click', () => {
+            const isCurrentlyDark = document.body.classList.contains('dark');
+            if (isCurrentlyDark) {
+                applyTheme('light');
+                localStorage.setItem('theme', 'light'); // Save explicit choice
+            } else {
+                applyTheme('dark');
+                localStorage.setItem('theme', 'dark'); // Save explicit choice
             }
         });
 
@@ -1093,9 +1119,6 @@
             input.addEventListener('change', saveCalendarData);
             input.addEventListener('input', saveCalendarData); // Also listen for input for text/number fields
         });
-
-        // Load data when the page loads
-        window.addEventListener('load', loadCalendarData);
 
     </script>
 </body>
